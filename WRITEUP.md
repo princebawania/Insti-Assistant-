@@ -1,86 +1,53 @@
-# IITB Insti-Assist — Project Write-up
+# IITB Insti-Assist — Write-up
 
-*WnCC Machine Learning Learners' Space 2026 — Final Project*
+WnCC Machine Learning Learners' Space 2026, final project.
 
----
+## The scope I picked, and why
 
-## 1. Chosen scope and why
+I went with the General Insti Assistant, the broad one. The brief warns it's harder to pull off in a week, and honestly that's exactly why I chose it. A narrow bot that only knows the grading policy is easy, but it never really tests retrieval, because almost any question lands on the same document. With a mixed bag of documents the retriever actually has to decide which one is relevant, and the "I don't know" guardrail starts doing real work instead of being decoration. It felt like the version of the project that would teach me the most.
 
-**Scope: General Insti Assistant** — a single assistant spanning academics,
-hostel & campus life, student councils/clubs, and administrative processes.
+## What went into the knowledge base
 
-We chose the general scope deliberately. A narrow scope (e.g. only grading
-policy) makes retrieval easy but doesn't stress-test the part of RAG that
-actually matters: distinguishing *relevant* context from *irrelevant* context
-across heterogeneous documents. A general corpus forces the retriever to route
-each question to the right document, and it makes the grounding guardrail
-(refusing when nothing relevant is found) genuinely load-bearing rather than
-decorative. The tradeoff — that breadth is harder to do well in a week — is
-mitigated by keeping the corpus curated and topic-segmented (one document per
-theme).
+Nine real IITB documents, around 100 pages between them. Eight are official PDFs and one is a plain-text overview I put together for the general campus stuff the rulebooks don't cover:
 
-## 2. Data sources used
+- UG rulebook (the big one, 52 pages)
+- Academic calendar 2026-27
+- Dissertation rules
+- IDDDP guidelines
+- Rules for medals and academic prizes
+- Disciplinary procedures
+- Disciplinary punishments
+- Student medical rules
+- A general institute overview (departments, campus, hostels, Gymkhana, admissions)
 
-The corpus is organised as one document per insti theme:
-1. WnCC & Learners' Space program overview
-2. Grading & credit system (SPI/CPI, letter grades)
-3. Hostel & campus life
-4. Student Gymkhana & councils
-5. Academic calendar & course registration
-6. Examinations & attendance rules
+Before indexing anything I checked every PDF actually had selectable text and wasn't a scanned image, since a scanned PDF would just embed as nothing and quietly break the whole thing. All nine came back clean.
 
-> **Note on the submitted version:** the repository ships with six clearly
-> labelled *sample* documents so the pipeline runs out of the box. For the
-> graded submission these are replaced with **real, official IIT Bombay
-> sources** — PDFs from the Academic Office / rulebook, official web pages
-> (pulled via `rag.ingest.scrape_url`), and council pages — meeting the
-> "at least 5 real documents" requirement.
+## How I chunked, and the bug that made me change it
 
-## 3. Chunking strategy and why
+I started with small chunks, 600 characters. That worked fine for the prose documents like the rulebook, but the academic calendar wrecked it. The calendar is basically a big table, and when it got sliced up the section headings ("Autumn Semester", "Summer Term") got separated from the actual dates. So I'd ask when the end-sem exams were, and the bot would confidently give me a date from the summer term instead, because the chunk it found just said "Term-end examination, 14 July" with no clue which term that even belonged to. It looked grounded. It was wrong.
 
-We use a **character-based sliding window** of **600 characters with 120
-characters of overlap** (`config.CHUNK_SIZE`, `config.CHUNK_OVERLAP`), breaking
-on natural boundaries (paragraph → sentence → whitespace) so chunks never cut
-mid-word.
+Bumping the chunk size up to 1200 characters, with 200 characters of overlap, mostly fixed it, because now a term's heading tends to stay attached to its dates. That took the corpus down to 247 chunks. It's still not perfect, tables are just hard, but it's a lot better. The overlap matters too, otherwise a fact that happens to sit right on a chunk boundary can go missing from both chunks.
 
-Reasoning:
-- **~600 chars (~100–130 words)** is large enough to hold a self-contained fact
-  (e.g. a full grading-scale explanation) but small enough that the embedding
-  vector stays semantically focused rather than averaging several unrelated
-  ideas into mush.
-- **Overlap** prevents the "lost at the seam" failure where a fact split across
-  two chunks becomes unretrievable in both.
-- **Boundary-aware splitting** keeps chunks readable, which matters because we
-  display the exact chunk as a citation in the UI.
+## Embeddings, search, and the model
 
-Embeddings use `all-MiniLM-L6-v2` (384-dim), L2-normalised so inner product in
-the FAISS `IndexFlatIP` equals cosine similarity. Retrieval returns the top-4
-chunks per query.
+I embed with BAAI/bge-small-en-v1.5. I actually started with all-MiniLM-L6-v2, which is the usual default, but the answers weren't great, so I swapped to the BGE model. Same size and speed roughly, noticeably better at finding the right chunk. One quirk: BGE wants a little instruction prefix stuck on the front of the query (not the documents), so I added that on the query side only.
 
-## 4. How grounding / honesty is enforced
+The vectors are normalised and stored in a FAISS flat index, so search is just cosine similarity. It grabs the top 4 chunks per question. For generation I'm using Gemini 2.5-flash on the free tier, at a low temperature so it stays factual.
 
-Two independent mechanisms:
-1. A **retrieval-score gate**: if the top chunk's cosine similarity is below
-   `MIN_SCORE` (default 0.30), we return "I don't know" *before* calling the
-   LLM — it physically cannot hallucinate context it was never given.
-2. A **strict system prompt** instructing the model to answer only from the
-   provided passages, cite `[Source N]`, and otherwise refuse.
+## Keeping it honest
 
-The UI surfaces a grounded/not-grounded badge with the confidence score, and an
-expander showing the exact retrieved chunks and their similarity scores.
+Two things stop it hallucinating. The first is a score cutoff: if the best chunk it finds scores below 0.30, it doesn't even bother calling Gemini, it just says it doesn't know. You can't hallucinate from a document you never sent. The second is the prompt itself, which tells the model to stick to the passages it's given, to say which semester or term a date belongs to, to list the options when a question is ambiguous instead of picking one at random, and to cite its sources. The app shows a grounded-or-not badge and the confidence score on every answer, and you can expand the sources to see the exact chunks it used.
 
-## 5. Known limitations / what we'd improve with more time
+## Stretch goals
 
-- **Fixed-size chunking is naive.** A semantic or layout-aware chunker (respect
-  headings, tables) would improve retrieval on structured PDFs like rulebooks.
-- **Single-vector retrieval only.** Adding a lexical (BM25) retriever in a
-  hybrid setup, plus a cross-encoder re-ranker, would sharpen precision on
-  keyword-heavy queries (course codes, hostel names).
-- **Threshold is global and hand-tuned.** A learned or per-query calibrated
-  threshold would handle the varying difficulty of questions better.
-- **No evaluation harness.** We'd add a small labelled Q&A set to measure
-  answer accuracy, retrieval hit-rate, and false-"I don't know" rate.
-- **Stale data.** Institute rules change; a scheduled re-scrape + re-index job
-  would keep the corpus current.
-- **Multi-turn memory is verbatim.** Long conversations bloat the prompt; we'd
-  summarise older turns rather than pass them raw.
+I did all four: showing the source chunks with scores, remembering previous turns for follow-ups, live PDF upload from the sidebar, and the grounded/confidence badge.
+
+## What's still weak, and what I'd do with more time
+
+The calendar is the obvious weak spot. Even at 1200-character chunks, dates buried in tables just don't embed as cleanly as normal sentences, so it's the least reliable part of the bot. A proper fix would be a chunker that understands table layout, or honestly just hand-cleaning the calendar into plain text with the term written on every row.
+
+The bigger lesson was that "grounded" and "correct" aren't the same thing. A chunk can score high and still be the wrong section, like the summer-vs-autumn exam mix-up. The standard fix is a re-ranker: pull a bigger batch of candidates, then use a second model to reorder them and keep the best few. I didn't have time to add it but that's the first thing I'd build next.
+
+A few other things I'd want: some lexical search (BM25) alongside the vector search, so exact terms like course codes or rule numbers match better; a small set of test questions with known answers so I could actually measure accuracy instead of eyeballing it; and summarising old conversation turns instead of stuffing them all into the prompt, which would help once a chat gets long.
+
+The threshold and top-k I landed on (0.30 and 4) worked well for these documents, but they're hand-tuned to this corpus. Set the threshold too low and it starts answering off-topic questions; too high and it refuses real ones. Finding that line was most of the tuning.
