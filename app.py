@@ -15,7 +15,7 @@ import streamlit as st
 import config
 from rag.chunking import chunk_documents
 from rag.embedding import embed_texts
-from rag.ingest import load_pdf
+from rag.ingest import load_pdf, load_directory
 from rag.pipeline import RAGPipeline
 from rag.vectorstore import VectorStore
 
@@ -25,7 +25,24 @@ st.set_page_config(page_title="IITB Insti-Assist", page_icon="🎓", layout="cen
 # ---------- resource loading (cached across reruns) ----------
 @st.cache_resource(show_spinner="Loading the knowledge base…")
 def load_base_store():
-    return VectorStore.load()  # None if the index hasn't been built yet
+    store = VectorStore.load()
+    if store is not None:
+        return store
+    # No prebuilt index (e.g. a fresh deploy) — build it from data/raw/.
+    docs = load_directory()
+    if not docs:
+        return None
+    chunks = chunk_documents(docs)
+    if not chunks:
+        return None
+    vectors = embed_texts([c["text"] for c in chunks])
+    store = VectorStore()
+    store.add(vectors, chunks)
+    try:
+        store.save()          # cache to disk if the filesystem allows it
+    except Exception:
+        pass                  # read-only FS is fine, it's already in memory
+    return store
 
 
 def get_session_store():
