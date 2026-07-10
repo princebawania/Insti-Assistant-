@@ -1,0 +1,49 @@
+{
+  "_about": "Evaluation set for IITB Insti-Assist. 'expected_source' is the document that should be retrieved (matched by filename substring). 'answer_key' is the ground-truth answer used ONLY for the correctness metric -- FILL THESE from the real documents in data/raw/. Leave answer_key empty ('') to skip correctness for that item (retrieval + faithfulness + refusal still run). 'type' is 'in_scope' (answerable from corpus) or 'out_of_scope' (assistant must refuse).",
+  "items": [
+    {"id": "ug1", "type": "in_scope", "expected_source": "UG_RULE_BOOK.pdf", "question": "What is the minimum CPI a UG student must maintain to avoid being placed on academic probation?", "answer_key": ""},
+    {"id": "ug2", "type": "in_scope", "expected_source": "UG_RULE_BOOK.pdf", "question": "How is the Cumulative Performance Index (CPI) calculated for a B.Tech student?", "answer_key": ""},
+    {"id": "ug3", "type": "in_scope", "expected_source": "UG_RULE_BOOK.pdf", "question": "What is the minimum attendance requirement for a student to be allowed to sit for the examination in a course?", "answer_key": ""},
+
+    {"id": "cal1", "type": "in_scope", "expected_source": "Academic_Calendar_2026-27_FINAL.pdf", "question": "On what date does the Autumn 2026 semester begin?", "answer_key": ""},
+    {"id": "cal2", "type": "in_scope", "expected_source": "Academic_Calendar_2026-27_FINAL.pdf", "question": "What is the last date for course adjustment / add-drop in the Autumn 2026 semester?", "answer_key": ""},
+    {"id": "cal3", "type": "in_scope", "expected_source": "Academic_Calendar_2026-27_FINAL.pdf", "question": "When are the end-semester examinations scheduled for the Spring 2027 term?", "answer_key": ""},
+
+    {"id": "dis1", "type": "in_scope", "expected_source": "Dissertation17june09-10.pdf", "question": "What is the procedure for submission of a dissertation?", "answer_key": ""},
+    {"id": "dis2", "type": "in_scope", "expected_source": "Dissertation17june09-10.pdf", "question": "How many copies of the dissertation are required to be submitted and in what format?", "answer_key": ""},
+    {"id": "dis3", "type": "in_scope", "expected_source": "Dissertation17june09-10.pdf", "question": "Who constitutes the examination committee for a dissertation?", "answer_key": ""},
+
+    {"id": "idddp1", "type": "in_scope", "expected_source": "IDDDP_Guidelines_2025.pdf", "question": "What is the eligibility criterion (minimum CPI) to convert to the Interdisciplinary Dual Degree Programme (IDDDP)?", "answer_key": ""},
+    {"id": "idddp2", "type": "in_scope", "expected_source": "IDDDP_Guidelines_2025.pdf", "question": "At what stage of the B.Tech programme can a student apply for the IDDDP?", "answer_key": ""},
+    {"id": "idddp3", "type": "in_scope", "expected_source": "IDDDP_Guidelines_2025.pdf", "question": "How many extra credits or years does the IDDDP add compared to a normal B.Tech?", "answer_key": ""},
+
+    {"id": "med1", "type": "in_scope", "expected_source": "RulesforAwardofMedalsandAcademicprizesforUGandPG.pdf", "question": "What are the criteria for awarding the President of India Gold Medal?", "answer_key": ""},
+    {"id": "med2", "type": "in_scope", "expected_source": "RulesforAwardofMedalsandAcademicprizesforUGandPG.pdf", "question": "Which medal is awarded to the best all-round performance among graduating students?", "answer_key": ""},
+    {"id": "med3", "type": "in_scope", "expected_source": "RulesforAwardofMedalsandAcademicprizesforUGandPG.pdf", "question": "What academic prizes are available to undergraduate students at IIT Bombay?", "answer_key": ""},
+
+    {"id": "proc1", "type": "in_scope", "expected_source": "procedures201521July.pdf", "question": "What procedure does the Disciplinary Action Committee follow when handling a complaint?", "answer_key": ""},
+    {"id": "proc2", "type": "in_scope", "expected_source": "procedures201521July.pdf", "question": "How is a student notified of a disciplinary complaint filed against them?", "answer_key": ""},
+    {"id": "proc3", "type": "in_scope", "expected_source": "procedures201521July.pdf", "question": "What is the process for a student to appeal a disciplinary decision?", "answer_key": ""},
+
+    {"id": "pun1", "type": "in_scope", "expected_source": "punishments201521July.pdf", "question": "What punishment can be imposed for using unfair means (cheating) in an examination?", "answer_key": ""},
+    {"id": "pun2", "type": "in_scope", "expected_source": "punishments201521July.pdf", "question": "What are the disciplinary penalties for ragging?", "answer_key": ""},
+    {"id": "pun3", "type": "in_scope", "expected_source": "punishments201521July.pdf", "question": "What action is taken against a student for damaging institute property?", "answer_key": ""},
+
+    {"id": "medic1", "type": "in_scope", "expected_source": "student-medical-rules.pdf", "question": "What is the procedure for a student to avail medical leave?", "answer_key": ""},
+    {"id": "medic2", "type": "in_scope", "expected_source": "student-medical-rules.pdf", "question": "Who is eligible for treatment at the IIT Bombay Hospital?", "answer_key": ""},
+    {"id": "medic3", "type": "in_scope", "expected_source": "student-medical-rules.pdf", "question": "What documents are required to claim medical reimbursement?", "answer_key": ""},
+
+    {"id": "ov1", "type": "in_scope", "expected_source": "01_iitb_overview.txt", "question": "In which year was IIT Bombay established?", "answer_key": ""},
+    {"id": "ov2", "type": "in_scope", "expected_source": "01_iitb_overview.txt", "question": "What is the Student Gymkhana at IIT Bombay responsible for?", "answer_key": ""},
+    {"id": "ov3", "type": "in_scope", "expected_source": "01_iitb_overview.txt", "question": "Roughly how many academic departments and centres does IIT Bombay have?", "answer_key": ""},
+
+    {"id": "oos1", "type": "out_of_scope", "expected_source": "", "question": "What is the capital of France?", "answer_key": ""},
+    {"id": "oos2", "type": "out_of_scope", "expected_source": "", "question": "Who won the IPL in 2024?", "answer_key": ""},
+    {"id": "oos3", "type": "out_of_scope", "expected_source": "", "question": "What is the fee structure of the MBA programme at IIM Ahmedabad?", "answer_key": ""},
+    {"id": "oos4", "type": "out_of_scope", "expected_source": "", "question": "Can you give me a recipe for chicken biryani?", "answer_key": ""},
+    {"id": "oos5", "type": "out_of_scope", "expected_source": "", "question": "What are the US student visa (F-1) requirements?", "answer_key": ""},
+    {"id": "oos6", "type": "out_of_scope", "expected_source": "", "question": "What is the current stock price of Tesla?", "answer_key": ""},
+    {"id": "oos7", "type": "out_of_scope", "expected_source": "", "question": "Who is the current Prime Minister of Japan?", "answer_key": ""},
+    {"id": "oos8", "type": "out_of_scope", "expected_source": "", "question": "What is the complete syllabus for the GATE Mechanical Engineering exam?", "answer_key": ""}
+  ]
+}

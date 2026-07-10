@@ -1,0 +1,317 @@
+{
+  "index_size": 247,
+  "k": 6,
+  "retrieval": {
+    "k": 6,
+    "n": 27,
+    "hit_at_k": 1.0,
+    "mrr": 0.921
+  },
+  "k_sweep": [
+    {
+      "k": 1,
+      "hit_at_k": 0.889,
+      "mrr": 0.889
+    },
+    {
+      "k": 2,
+      "hit_at_k": 0.926,
+      "mrr": 0.907
+    },
+    {
+      "k": 4,
+      "hit_at_k": 0.926,
+      "mrr": 0.907
+    },
+    {
+      "k": 6,
+      "hit_at_k": 1.0,
+      "mrr": 0.921
+    },
+    {
+      "k": 8,
+      "hit_at_k": 1.0,
+      "mrr": 0.921
+    }
+  ],
+  "threshold_ablation": [
+    {
+      "min_score": 0.3,
+      "oos_refusal_acc": 0.0,
+      "false_refusal_rate": 0.0
+    },
+    {
+      "min_score": 0.4,
+      "oos_refusal_acc": 0.0,
+      "false_refusal_rate": 0.0
+    },
+    {
+      "min_score": 0.45,
+      "oos_refusal_acc": 0.0,
+      "false_refusal_rate": 0.0
+    },
+    {
+      "min_score": 0.5,
+      "oos_refusal_acc": 0.5,
+      "false_refusal_rate": 0.0
+    },
+    {
+      "min_score": 0.55,
+      "oos_refusal_acc": 0.625,
+      "false_refusal_rate": 0.0
+    },
+    {
+      "min_score": 0.6,
+      "oos_refusal_acc": 0.75,
+      "false_refusal_rate": 0.0
+    },
+    {
+      "min_score": 0.65,
+      "oos_refusal_acc": 0.75,
+      "false_refusal_rate": 0.074
+    },
+    {
+      "min_score": 0.7,
+      "oos_refusal_acc": 1.0,
+      "false_refusal_rate": 0.111
+    }
+  ],
+  "answers": {
+    "faithfulness": 0.963,
+    "correctness": null,
+    "n_correctness_scored": 0,
+    "e2e_oos_refusal_acc": 1.0,
+    "e2e_false_refusal_rate": 0.185,
+    "per_item": [
+      {
+        "id": "ug1",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": true,
+        "answer": "I don't know based on the documents I have."
+      },
+      {
+        "id": "ug2",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": false,
+        "answer": "The Cumulative Performance Index (CPI) is calculated by dividing the Cumulative Grade Points by the Cumulative Credits [Source 2]. It is an assessment of a student's overall performance from the time they entered the Institute, considering all courses registered towards the minimum requirement of th"
+      },
+      {
+        "id": "ug3",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": false,
+        "answer": "For regular semester courses, if a student has 80% attendance or more, they cannot be awarded a \"DX\" (Drop due to inadequate attendance) grade, unless the instructor has declared in the first week that no DX grade will be awarded [Source 6]. For summer term courses, a minimum of 80% attendance is co"
+      },
+      {
+        "id": "cal1",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": false,
+        "answer": "The Autumn 2026 semester lectures begin on 27 July 2026 [Source 1]."
+      },
+      {
+        "id": "cal2",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": false,
+        "answer": "The last date for course adjustment in the Autumn 2026 semester is 3 August 2026 (Monday) [Source 1, Source 2]."
+      },
+      {
+        "id": "cal3",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": false,
+        "answer": "The end-semester examinations for the Spring 2027 semester are scheduled from 19 April 2027 (Monday) to 1 May 2027 (Saturday) [Source 4]."
+      },
+      {
+        "id": "dis1",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": false,
+        "answer": "The procedure for submitting a dissertation is as follows:\n\n*   **Electronic Submission:** Dissertations/reports must be submitted in electronic form to the Central Library. Before finalizing this archival version, you must obtain due academic approvals from your supervisor(s) [Source 4].\n*   **Hard"
+      },
+      {
+        "id": "dis2",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": false,
+        "answer": "The provided documents do not specify the exact number of copies of the dissertation required for submission. Regarding the format:\n\n*   **Hard-bound copies:** After the dissertation is assessed, a hard-bound copy must be submitted to the Academic Office along with duly completed forms [Source 3]. T"
+      },
+      {
+        "id": "dis3",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": false,
+        "answer": "The composition of the examination committee depends on the type of assessment:\n\n*   **For DDP Stage I:** The Board of Examiners consists of the supervisor(s) and one internal examiner [Source 2].\n*   **For DDP Stage (Final) II:** The Board of Examiners is appointed by the DPGC/IDPC and consists of "
+      },
+      {
+        "id": "idddp1",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": false,
+        "answer": "The minimum eligibility criterion for the Interdisciplinary Dual Degree Programme (IDDDP) is a CPI >= 7.5 at the end of the sixth semester [Source 1, Source 2, Source 6]. \n\nPlease note that individual academic units may enforce additional eligibility and selection criteria [Source 1, Source 6]. For "
+      },
+      {
+        "id": "idddp2",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": false,
+        "answer": "Undergraduate students admitted to B.S., B.Tech., and DD (B.Tech. + M.Tech.) programmes can apply for the IDDDP at the end of the sixth semester [Source 1], [Source 4], [Source 5]."
+      },
+      {
+        "id": "idddp3",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": true,
+        "answer": "I don't know based on the documents I have."
+      },
+      {
+        "id": "med1",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": false,
+        "answer": "The President of India Medal (PGM) is awarded to a student of B.S./B.Tech. (with honors) or B.Tech.+M.Tech. Dual Degree/IDDDP (excluding those without honors) who has the highest CPI at the end of the 4th year [Source 1]. \n\nThe criteria for consideration are as follows:\n*   **CPI Calculation:** The "
+      },
+      {
+        "id": "med2",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": false,
+        "answer": "The Dr. Shankar Dayal Sharma Gold Medal is awarded to the most outstanding student in terms of general proficiency, excellence in academic performance, extracurricular activities, and social services among all graduating students [Source 3]."
+      },
+      {
+        "id": "med3",
+        "faithful": 0.0,
+        "correct": null,
+        "refused": false,
+        "answer": "The provided documents do not list the specific names or types of academic prizes available to undergraduate students, other than mentioning that there is a section for \"Academic Prizes awarded to On-Roll students\" in the \"Rules for Award of Medals and Academic prizes for UG & PG\" [Source 5]."
+      },
+      {
+        "id": "proc1",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": false,
+        "answer": "When handling a complaint, the D-ADAC follows these procedures:\n\n*   **Initial Processing:** The office staff provides the student with copies of the instructor's report and evidence. The student is given two working days to submit a written response [Source 5]. The office also contacts the Dean (AP"
+      },
+      {
+        "id": "proc2",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": false,
+        "answer": "A student is notified of a disciplinary complaint when the office staff contacts them and provides them with copies of both the report submitted by the instructor and the evidence provided [Source 1, Source 6]. The Head of the Department issues a letter to the student informing them of the reported "
+      },
+      {
+        "id": "proc3",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": true,
+        "answer": "I don't know based on the documents I have."
+      },
+      {
+        "id": "pun1",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": false,
+        "answer": "The punishment for using unfair means during an examination depends on the specific act:\n\n*   **Verbal communication:** Loss of one grade if only a signed note from the invigilator exists as evidence; an FR grade if there is other evidence (e.g., identical answers) [Source 1].\n*   **Passing unauthor"
+      },
+      {
+        "id": "pun2",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": true,
+        "answer": "I don't know based on the documents I have."
+      },
+      {
+        "id": "pun3",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": true,
+        "answer": "I don't know based on the documents I have."
+      },
+      {
+        "id": "medic1",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": false,
+        "answer": "To avail medical leave (dropping a semester), the following procedures apply:\n\n*   **Medical Certificate:** A medical certificate must be submitted, which should include the diagnosis period, treatment undertaken, and fitness to join or continue academic registration in the institute [Source 1, Sour"
+      },
+      {
+        "id": "medic2",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": false,
+        "answer": "The following individuals are eligible for treatment at the IITB Hospital:\n\n*   **UG and PG students:** Those registered for the Autumn (July-December) and Spring (January-June) semesters are entitled to treatment while present on campus [Source 3].\n    *   UG students with academic extensions (due "
+      },
+      {
+        "id": "medic3",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": false,
+        "answer": "To claim medical reimbursement, you must submit the following:\n\n*   **For medical advance settlement:** You must submit the claim within one month of discharge using forms available at www.asc.iitb.ac.in [Source 1].\n*   **For OPD and in-patient bills (when no medical advance is taken):** These shoul"
+      },
+      {
+        "id": "ov1",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": false,
+        "answer": "IIT Bombay was established in 1958 [Source 1]."
+      },
+      {
+        "id": "ov2",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": false,
+        "answer": "The Student Gymkhana is the overarching body for all student councils and committees that coordinate student activities and organize events and festivals throughout the year [Source 1]."
+      },
+      {
+        "id": "ov3",
+        "faithful": 1.0,
+        "correct": null,
+        "refused": false,
+        "answer": "IIT Bombay has 17 academic departments and 35 additional academic centres [Source 2]."
+      },
+      {
+        "id": "oos1",
+        "refused": true,
+        "answer": "I don't know based on the documents I have."
+      },
+      {
+        "id": "oos2",
+        "refused": true,
+        "answer": "I don't know based on the documents I have."
+      },
+      {
+        "id": "oos3",
+        "refused": true,
+        "answer": "I don't know based on the documents I have."
+      },
+      {
+        "id": "oos4",
+        "refused": true,
+        "answer": "I don't know based on the documents I have."
+      },
+      {
+        "id": "oos5",
+        "refused": true,
+        "answer": "I don't know based on the documents I have."
+      },
+      {
+        "id": "oos6",
+        "refused": true,
+        "answer": "I don't know based on the documents I have."
+      },
+      {
+        "id": "oos7",
+        "refused": true,
+        "answer": "I don't know based on the documents I have."
+      },
+      {
+        "id": "oos8",
+        "refused": true,
+        "answer": "I don't know based on the documents I have."
+      }
+    ]
+  }
+}
